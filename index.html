@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eastern Mysticism · Bazi Destiny Reading</title>
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --dark-bg: #0d0e12;
+            --panel-bg: rgba(26, 28, 35, 0.85);
+            --text-light: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at 50% 50%, #1a1c23 0%, #000000 100%);
+            color: var(--text-light);
+            font-family: 'Times New Roman', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--panel-bg);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #332912;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before, .container::after {
+            content: "✦";
+            position: absolute;
+            color: var(--primary-gold);
+            font-size: 24px;
+            opacity: 0.5;
+        }
+        .container::before { top: 10px; left: 15px; }
+        .container::after { bottom: 10px; right: 15px; }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-gold);
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #4a3e21;
+            color: var(--primary-gold);
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #8a6d2b, #d4af37);
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #4a3e21;
+            display: none;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .result-section {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .result-title {
+            color: var(--primary-gold);
+            font-size: 18px;
+            border-left: 3px solid var(--primary-gold);
+            padding-left: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .hexagram {
+            text-align: center;
+            font-size: 40px;
+            margin: 10px 0;
+            color: var(--primary-gold);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bazi Destiny Reading</h1>
+    <div class="subtitle">Decode the Yin-Yang and Unveil the Universe's Secrets</div>
+
+    <div class="form-group">
+        <input type="number" id="year" placeholder="Year (e.g. 1999)" min="1900" max="2100">
+        <input type="number" id="month" placeholder="Month (1-12)" min="1" max="12">
+    </div>
+    <div class="form-group">
+        <input type="number" id="day" placeholder="Day (1-31)" min="1" max="31">
+        <select id="time">
+            <option value="Zi">Zi Hour (23:00 - 00:59)</option>
+            <option value="Chou">Chou Hour (01:00 - 02:59)</option>
+            <option value="Yin">Yin Hour (03:00 - 04:59)</option>
+            <option value="Mao">Mao Hour (05:00 - 06:59)</option>
+            <option value="Chen">Chen Hour (07:00 - 08:59)</option>
+            <option value="Si">Si Hour (09:00 - 10:59)</option>
+            <option value="Wu">Wu Hour (11:00 - 12:59)</option>
+            <option value="Wei">Wei Hour (13:00 - 14:59)</option>
+            <option value="Shen">Shen Hour (15:00 - 16:59)</option>
+            <option value="You">You Hour (17:00 - 18:59)</option>
+            <option value="Xu">Xu Hour (19:00 - 20:59)</option>
+            <option value="Hai">Hai Hour (21:00 - 22:59)</option>
+        </select>
+    </div>
+
+    <button onclick="calculateDestiny()">Reveal Your Destiny</button>
+
+    <div id="result">
+        <div class="hexagram" id="hexagram-symbol">☯</div>
+        <div class="result-section">
+            <div class="result-title">Life Path Overview</div>
+            <div id="summary"></div>
+        </div>
+        <div class="result-section">
+            <div class="result-title">Wealth & Career</div>
+            <div id="career"></div>
+        </div>
+        <div class="result-section">
+            <div class="result-title">Love & Relationships</div>
+            <div id="love"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const summaries = [
+        "Your destiny chart reveals a harmonious balance of the Five Elements. Early years may bring minor challenges, but your solid foundation ensures great success in your middle ages. You possess the archetype of a 'late bloomer' destined for profound wisdom.",
+        "Blessed by the Nobleman Star, your aura is extraordinarily clear. You possess deep intuition and spiritual intelligence. Even during turbulent years, hidden protectors will always help you turn adversity into fortune.",
+        "With strong creative energies dominating your chart, your mind is delicate yet brilliant. You are best suited for paths in arts, culture, or specialized tech rather than traditional corporate ladders. Accumulate your skills, and you will eventually shine.",
+        "Water and Wood flow seamlessly in your chart, indicating a gentle yet resilient nature. You navigate social situations with grace. While sudden windfalls are rare, you are blessed with a lifetime of security, steady growth, and deep fulfillment."
+    ];
+
+    const careers = [
+        "The Direct Officer star shines in your career palace. You are naturally suited for management, government, or large corporate structures. Financially, focus on steady investments; avoid risky speculations.",
+        "Your chart reveals strong Indirect Wealth. You have a sharp instinct for emerging markets and entrepreneurship. After age 35, your wealth stars align perfectly, offering opportunities to significantly elevate your financial status.",
+        "Your archetype is the 'Creator of Wealth'. Your success relies on your communication skills, creativity, or a unique craft. Be patient in your early career; as you enter your prime, your reputation will naturally bring financial rewards."
+    ];
+
+    const loves = [
+        "Your Relationship House is harmonious. Your future partner will likely be a gentle, grounding force, serving as a solid anchor for your ambitions. Open communication is your key to a lifelong bond.",
+        "The Romance Star awakens slightly later in your chart. Early relationships may be fleeting, but true love arrives once your mind is fully mature. Maintaining independence within your marriage will bring the greatest harmony.",
+        "Blessed with strong Peach Blossom energies, you are highly charismatic. While this brings many admirers, it requires you to be discerning. Choose a partner with strong family values, and channel your charisma into your career after marriage."
+    ];
+
+    function calculateDestiny() {
+        const year = document.getElementById('year').value;
+        const month = document.getElementById('month').value;
+        const day = document.getElementById('day').value;
+        const time = document.getElementById('time').value;
+
+        if(!year || !month || !day) {
+            alert("The Heavens require complete information. Please enter your full birth date.");
+            return;
+        }
+
+        const seed = parseInt(year) + parseInt(month) * 10 + parseInt(day) * 100 + time.charCodeAt(0);
+        
+        document.getElementById('summary').innerText = summaries[seed % summaries.length];
+        document.getElementById('career').innerText = careers[(seed * 2) % careers.length];
+        document.getElementById('love').innerText = loves[(seed * 3) % loves.length];
+        
+        const symbols = ["☰", "☱", "☲", "☳", "☴", "☵", "☶", "☷", "☯"];
+        document.getElementById('hexagram-symbol').innerText = symbols[seed % symbols.length];
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        
+        resultDiv.style.animation = 'none';
+        resultDiv.offsetHeight; 
+        resultDiv.style.animation = null; 
+    }
+</script>
+
+</body>
+</html>
