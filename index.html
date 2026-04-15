@@ -3,247 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eastern Mysticism · Bazi Destiny Reading</title>
+    <title>StellarPath | Ancient Eastern Metaphysics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-gold: #d4af37;
-            --dark-bg: #0d0e12;
-            --panel-bg: rgba(26, 28, 35, 0.85);
-            --text-light: #e0e0e0;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at 50% 50%, #1a1c23 0%, #000000 100%);
-            color: var(--text-light);
-            font-family: 'Times New Roman', serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background: var(--panel-bg);
-            padding: 40px;
-            border-radius: 8px;
-            border: 1px solid #332912;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container::before, .container::after {
-            content: "✦";
-            position: absolute;
-            color: var(--primary-gold);
-            font-size: 24px;
-            opacity: 0.5;
-        }
-        .container::before { top: 10px; left: 15px; }
-        .container::after { bottom: 10px; right: 15px; }
-
-        h1 {
-            text-align: center;
-            color: var(--primary-gold);
-            font-weight: normal;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            font-size: 28px;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-            font-style: italic;
-        }
-
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            gap: 10px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #4a3e21;
-            color: var(--primary-gold);
-            border-radius: 4px;
-            font-size: 16px;
-            outline: none;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--primary-gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        input::placeholder {
-            color: #888;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #8a6d2b, #d4af37);
-            color: #000;
-            border: none;
-            border-radius: 4px;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-            text-transform: uppercase;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        #result {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed #4a3e21;
-            display: none;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        .result-section {
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-
-        .result-title {
-            color: var(--primary-gold);
-            font-size: 18px;
-            border-left: 3px solid var(--primary-gold);
-            padding-left: 10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .hexagram {
-            text-align: center;
-            font-size: 40px;
-            margin: 10px 0;
-            color: var(--primary-gold);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @import url('https://gs.jurieo.com/gemini/fonts-googleapis/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #e5e5e5; }
+        .font-serif { font-family: 'Cinzel', serif; }
+        .gold-text { color: #d4af37; }
+        .gold-border { border-color: #d4af37; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Bazi Destiny Reading</h1>
-    <div class="subtitle">Decode the Yin-Yang and Unveil the Universe's Secrets</div>
-
-    <div class="form-group">
-        <input type="number" id="year" placeholder="Year (e.g. 1999)" min="1900" max="2100">
-        <input type="number" id="month" placeholder="Month (1-12)" min="1" max="12">
-    </div>
-    <div class="form-group">
-        <input type="number" id="day" placeholder="Day (1-31)" min="1" max="31">
-        <select id="time">
-            <option value="Zi">Zi Hour (23:00 - 00:59)</option>
-            <option value="Chou">Chou Hour (01:00 - 02:59)</option>
-            <option value="Yin">Yin Hour (03:00 - 04:59)</option>
-            <option value="Mao">Mao Hour (05:00 - 06:59)</option>
-            <option value="Chen">Chen Hour (07:00 - 08:59)</option>
-            <option value="Si">Si Hour (09:00 - 10:59)</option>
-            <option value="Wu">Wu Hour (11:00 - 12:59)</option>
-            <option value="Wei">Wei Hour (13:00 - 14:59)</option>
-            <option value="Shen">Shen Hour (15:00 - 16:59)</option>
-            <option value="You">You Hour (17:00 - 18:59)</option>
-            <option value="Xu">Xu Hour (19:00 - 20:59)</option>
-            <option value="Hai">Hai Hour (21:00 - 22:59)</option>
-        </select>
-    </div>
-
-    <button onclick="calculateDestiny()">Reveal Your Destiny</button>
-
-    <div id="result">
-        <div class="hexagram" id="hexagram-symbol">☯</div>
-        <div class="result-section">
-            <div class="result-title">Life Path Overview</div>
-            <div id="summary"></div>
+    <nav class="p-6 flex justify-between items-center border-b border-gray-800">
+        <div class="text-2xl font-serif gold-text tracking-widest">STELLARPATH</div>
+        <div class="space-x-6 hidden md:block">
+            <a href="#bazi" class="hover:text-yellow-500 transition">BaZi Reading</a>
+            <a href="#tools" class="hover:text-yellow-500 transition">Tools</a>
+            <a href="#about" class="hover:text-yellow-500 transition">Wisdom</a>
+            <a href="#messages" class="hover:text-yellow-500 transition">Community</a>
         </div>
-        <div class="result-section">
-            <div class="result-title">Wealth & Career</div>
-            <div id="career"></div>
+    </nav>
+
+    <section id="bazi" class="py-20 px-6 max-w-4xl mx-auto text-center">
+        <h1 class="font-serif text-4xl md:text-6xl mb-4">Discover Your <span class="gold-text">Destiny</span></h1>
+        <p class="text-gray-400 mb-10 italic">Unlock the secrets of your life using the Four Pillars of Destiny.</p>
+        
+        <div class="glass p-8 rounded-2xl border border-gray-700">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="text-left">
+                    <label class="block text-sm mb-2 text-gray-400">Full Name</label>
+                    <input type="text" placeholder="e.g. John Doe" class="w-full bg-black border border-gray-600 p-3 rounded focus:outline-none focus:border-yellow-600">
+                </div>
+                <div class="text-left">
+                    <label class="block text-sm mb-2 text-gray-400">Gender</label>
+                    <select class="w-full bg-black border border-gray-600 p-3 rounded focus:outline-none">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Non-binary</option>
+                    </select>
+                </div>
+                <div class="text-left">
+                    <label class="block text-sm mb-2 text-gray-400">Birth Date</label>
+                    <input type="date" class="w-full bg-black border border-gray-600 p-3 rounded">
+                </div>
+                <div class="text-left">
+                    <label class="block text-sm mb-2 text-gray-400">Birth Time</label>
+                    <input type="time" class="w-full bg-black border border-gray-600 p-3 rounded">
+                </div>
+            </div>
+            <button class="mt-8 w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-4 rounded-full transition duration-300">GENERATE DESTINY CHART</button>
         </div>
-        <div class="result-section">
-            <div class="result-title">Love & Relationships</div>
-            <div id="love"></div>
+    </section>
+
+    <section id="tools" class="py-20 bg-zinc-900 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-serif text-3xl text-center mb-12 gold-text">Mystical Tools</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="glass p-8 rounded-xl border border-gray-700">
+                    <i class="fas fa-mobile-alt text-3xl gold-text mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Numerology: Phone Fortune</h3>
+                    <p class="text-gray-400 text-sm mb-6">Analyze the vibrational energy of your mobile number and its impact on your luck.</p>
+                    <input type="text" placeholder="Enter phone number" class="w-full bg-black border border-gray-600 p-3 rounded mb-4">
+                    <button class="w-full border border-yellow-600 text-yellow-600 py-2 rounded hover:bg-yellow-600 hover:text-black transition">Check Luck</button>
+                </div>
+                <div class="glass p-8 rounded-xl border border-gray-700">
+                    <i class="fas fa-hands-helping text-3xl gold-text mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Celestial Noblemen Finder</h3>
+                    <p class="text-gray-400 text-sm mb-6">Identify the specific signs and individuals who act as your 'Guiding Stars' in life.</p>
+                    <p class="text-xs text-gray-500 italic">*Based on your BaZi chart calculation.</p>
+                    <button class="w-full mt-10 bg-gray-800 py-2 rounded hover:bg-gray-700 transition">Find My Benefactors</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<script>
-    const summaries = [
-        "Your destiny chart reveals a harmonious balance of the Five Elements. Early years may bring minor challenges, but your solid foundation ensures great success in your middle ages. You possess the archetype of a 'late bloomer' destined for profound wisdom.",
-        "Blessed by the Nobleman Star, your aura is extraordinarily clear. You possess deep intuition and spiritual intelligence. Even during turbulent years, hidden protectors will always help you turn adversity into fortune.",
-        "With strong creative energies dominating your chart, your mind is delicate yet brilliant. You are best suited for paths in arts, culture, or specialized tech rather than traditional corporate ladders. Accumulate your skills, and you will eventually shine.",
-        "Water and Wood flow seamlessly in your chart, indicating a gentle yet resilient nature. You navigate social situations with grace. While sudden windfalls are rare, you are blessed with a lifetime of security, steady growth, and deep fulfillment."
-    ];
+    <section id="about" class="py-20 px-6 max-w-4xl mx-auto text-left">
+        <h2 class="font-serif text-3xl mb-6 gold-text">The Origin of BaZi</h2>
+        <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>BaZi (Eight Characters), also known as the <strong>Four Pillars of Destiny</strong>, is a profound metaphysical system with over 2,000 years of history. It originated in ancient China as a way to map the cosmic energy present at the exact moment of a person's birth.</p>
+            <p>Each pillar represents the Year, Month, Day, and Hour. By analyzing the balance of the <strong>Five Elements</strong> (Wood, Fire, Earth, Metal, and Water), we can decode the blueprint of your character, wealth potential, and health.</p>
+        </div>
+    </section>
 
-    const careers = [
-        "The Direct Officer star shines in your career palace. You are naturally suited for management, government, or large corporate structures. Financially, focus on steady investments; avoid risky speculations.",
-        "Your chart reveals strong Indirect Wealth. You have a sharp instinct for emerging markets and entrepreneurship. After age 35, your wealth stars align perfectly, offering opportunities to significantly elevate your financial status.",
-        "Your archetype is the 'Creator of Wealth'. Your success relies on your communication skills, creativity, or a unique craft. Be patient in your early career; as you enter your prime, your reputation will naturally bring financial rewards."
-    ];
+    <section id="messages" class="py-20 bg-black px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-3xl text-center mb-10 gold-text">Community Insights</h2>
+            <div class="glass p-6 rounded-lg mb-8 border border-gray-800">
+                <textarea class="w-full bg-transparent border-b border-gray-700 focus:outline-none focus:border-yellow-600 p-2 mb-4" rows="3" placeholder="Share your experience..."></textarea>
+                <div class="flex justify-end">
+                    <button class="bg-yellow-600 px-6 py-2 rounded text-black font-bold">Post Message</button>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="border-l-2 border-yellow-600 pl-4">
+                    <p class="text-sm font-bold">Alice M. <span class="text-gray-500 font-normal ml-2">2 days ago</span></p>
+                    <p class="text-gray-400 mt-1 text-sm">The career analysis was surprisingly accurate. It helped me understand why I've been feeling stuck.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const loves = [
-        "Your Relationship House is harmonious. Your future partner will likely be a gentle, grounding force, serving as a solid anchor for your ambitions. Open communication is your key to a lifelong bond.",
-        "The Romance Star awakens slightly later in your chart. Early relationships may be fleeting, but true love arrives once your mind is fully mature. Maintaining independence within your marriage will bring the greatest harmony.",
-        "Blessed with strong Peach Blossom energies, you are highly charismatic. While this brings many admirers, it requires you to be discerning. Choose a partner with strong family values, and channel your charisma into your career after marriage."
-    ];
-
-    function calculateDestiny() {
-        const year = document.getElementById('year').value;
-        const month = document.getElementById('month').value;
-        const day = document.getElementById('day').value;
-        const time = document.getElementById('time').value;
-
-        if(!year || !month || !day) {
-            alert("The Heavens require complete information. Please enter your full birth date.");
-            return;
-        }
-
-        const seed = parseInt(year) + parseInt(month) * 10 + parseInt(day) * 100 + time.charCodeAt(0);
-        
-        document.getElementById('summary').innerText = summaries[seed % summaries.length];
-        document.getElementById('career').innerText = careers[(seed * 2) % careers.length];
-        document.getElementById('love').innerText = loves[(seed * 3) % loves.length];
-        
-        const symbols = ["☰", "☱", "☲", "☳", "☴", "☵", "☶", "☷", "☯"];
-        document.getElementById('hexagram-symbol').innerText = symbols[seed % symbols.length];
-
-        const resultDiv = document.getElementById('result');
-        resultDiv.style.display = 'block';
-        
-        resultDiv.style.animation = 'none';
-        resultDiv.offsetHeight; 
-        resultDiv.style.animation = null; 
-    }
-</script>
+    <footer class="py-10 text-center text-gray-600 border-t border-gray-900">
+        <p>&copy; 2026 StellarPath. For spiritual guidance only.</p>
+    </footer>
 
 </body>
 </html>
